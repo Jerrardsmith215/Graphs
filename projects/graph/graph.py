@@ -33,15 +33,15 @@ class Graph:
         print('BFT')
         # create a queue necessarry placeholders
         queue  = Queue() # queue create queue for fringe nodes (unvisited)
-        visited = set() # create set for tree nodes (visited)
+        tree = [] # create set for tree nodes (visited)
         queue.enqueue(starting_vertex) # begin at source vertex 'v'
         while queue.size(): # as long as the queue is not empty
             explored = queue.dequeue() # mark node as explored
-            visited.add(explored) # add node to tree node set
+            tree.append(explored) # add node to tree node set
             for edge in self.vertices[explored]: # iterate through the edges of the explored node
-                    if edge not in visited:  # check if the edge has been visited
+                    if edge not in tree:  # check if the edge has been visited
                         queue.enqueue(edge) # if not enque, then print and repeat
-        print (visited)
+        print (tree)
         pass  # TODO
     def dft(self, starting_vertex):
         """
@@ -50,17 +50,17 @@ class Graph:
         """
         print('DFT')
         # create a queue necessarry placeholders
-        stack = Stack() # stack for fringe nodes
-        visited = set() # create set for tree nodes (visited)
+        stack = Stack() 
+        tree = [] # set for visited nodes
         stack.push(starting_vertex) # begin at source vertex 'v'
         while stack.size(): # as long as the queue is not empty
-            explored = stack.pop() # mark node as explored
-            visited.add(explored) # add node to tree node set
-            for edge in self.vertices[explored]: # iterate through the edges of the explored node
-                    if edge not in visited:  # check if the edge has been visited
-                        stack.push(edge) 
-        print(visited)
-        pass  # TODO unsure why I get the same for both?
+            explored = stack.pop() # mark node on top of stack as explored
+            if explored not in tree: # if the explored node is not in the tree
+                tree.append(explored) # add node to tree node set
+                for fringe in self.vertices[explored]: # iterate through the fringe nodes of the explored node
+                    stack.push(fringe) # and push each one to the stack 
+        print(tree)
+        pass  # TODO
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -75,8 +75,23 @@ class Graph:
         breath-first order.
         """
         print('BFS')
-        
-
+        queue = Queue()
+        tree = [queue.enqueue(starting_vertex)]
+        path = set()
+        searchKey = starting_vertex
+        if starting_vertex is destination_vertex:
+            print('The search was over before it began!')
+            return starting_vertex
+        while queue.size(): 
+            for fringe in self.vertices[searchKey]:
+                if fringe is destination_vertex:
+                    path.add(searchKey, fringe)
+                    return path
+                else: 
+                    queue.enqueue(fringe)
+                    tree.append(fringe)
+                if destination_vertex in self.vertices[fringe]:
+                    path.add(searchKey)
         pass  # TODO
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -84,6 +99,9 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        stack = Stack()
+        tree = []
+        explored 
         pass  # TODO
 
 
