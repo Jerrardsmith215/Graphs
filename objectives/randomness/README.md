@@ -203,7 +203,7 @@ Notice that we needed to store l[2] in a temporary variable before swapping so i
 Let's move on to the next element:
 
 ```python
->>> random.randint(1, 5)
+>>> random.randint(1, 4)
 4
 ```
 
@@ -254,6 +254,6 @@ We can generalize this into an algorithm like so:
 import random
 def fisher_yates_shuffle(l):
     for i in range(0, len(l)):
-        random_index = random.randint(0, len(l) - 1)
+        random_index = random.randint(i, len(l) - 1)
         l[random_index], l[i] = l[i], l[random_index]
 ```
